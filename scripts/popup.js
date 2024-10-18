@@ -43,7 +43,7 @@ function displayTasks(tasks) {
 		taskCard.className = "bg-white border rounded-lg shadow p-4 flex flex-col justify-between";
 		taskCard.innerHTML = `
             <h2 class="font-semibold">${task.task}</h2>
-            <p class="text-gray-600">Due: ${task.date}</p>
+            <span class="text-gray-600">Due: ${task.date}      Time: ${task.time}</span>
         `;
 		taskList.appendChild(taskCard);
 	});
