@@ -5,55 +5,72 @@
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1.0" />
-
 		<link
 			href="./dist/output.css"
 			rel="stylesheet" />
-
 		<script src="scripts/popup.js"></script>
-		<script
-			src="scripts/api.js"
-			type="module"></script>
-		<script src="scripts/background.js"></script>
-		<title>Todo Extension</title>
+		<title>Todo Tasks</title>
+		<style>
+			@layer utilities {
+				@keyframes scan {
+					0% {
+						transform: translateY(-100%);
+					}
+					100% {
+						transform: translateY(100%);
+					}
+				}
+
+				@keyframes glow {
+					0%,
+					100% {
+						box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+					}
+					50% {
+						box-shadow: 0 10px 10px rgb(255, 255, 255);
+					}
+				}
+
+				.animate-scan {
+					animation: scan 2s infinite linear;
+				}
+
+				.animate-glow {
+					animation: glow 3s infinite ease-in-out;
+				}
+			}
+			.hide {
+				display: none; 
+			}
+		</style>
 	</head>
-	<style>
-		@font-face {
-			font-family: "Caros Light";
-			src: url("https://db.onlinewebfonts.com/t/9180dec2cdd1711edd6b8d86954aae05.eot");
-			src: url("https://db.onlinewebfonts.com/t/9180dec2cdd1711edd6b8d86954aae05.eot?#iefix")
-					format("embedded-opentype"),
-				url("https://db.onlinewebfonts.com/t/9180dec2cdd1711edd6b8d86954aae05.woff2") format("woff2"),
-				url("https://db.onlinewebfonts.com/t/9180dec2cdd1711edd6b8d86954aae05.woff") format("woff"),
-				url("https://db.onlinewebfonts.com/t/9180dec2cdd1711edd6b8d86954aae05.ttf") format("truetype"),
-				url("https://db.onlinewebfonts.com/t/9180dec2cdd1711edd6b8d86954aae05.svg#Caros Light") format("svg");
-		}
-	</style>
+	<div
+		id="loading"
+		class="hide relative w-full h-[300px] flex items-center justify-center rounded-md overflow-hidden">
+		<!-- Scan line -->
+		<div
+			class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-white/30 to-transparent animate-scan"></div>
+
+		<!-- Glowing border -->
+		<div class="absolute top-0 left-0 w-full h-full border-2 border-transparent rounded-md animate-glow"></div>
+
+		<!-- Loading text -->
+		<div class="relative z-10 text-white text-lg font-semibold">Fetching Tasks...</div>
+	</div>
+
 	<body
 		class="bg-gradient-to-br from-[#0172af] to-[#74febd] p-4 rounded-lg w-64 min-h-screen"
 		style="font-family: Caros Light">
 		<h1 class="text-xl font-bold mb-4 text-white">Todo Tasks</h1>
-		<input
-			type="email"
-			id="email"
-			placeholder="Email"
-			class="border-b text-white font-bold border-white p-2 mb-2 w-full rounded outline-none bg-transparent placeholder-white"
-			required />
-		<input
-			type="password"
-			id="password"
-			placeholder="Password"
-			class="border-b text-white font-bold border-white p-2 mb-4 w-full rounded outline-none bg-transparent placeholder-white"
-			required />
-		<button
-			id="fetchTasks"
-			class="bg-gradient-to-br from-[#9406E6] to-[#00FFFF] text-white p-2 rounded w-full font-semibold"
-			>Fetch Tasks</button
-		>
 		<div
 			id="taskList"
 			class="rounded-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 bg-slate-200 shadow-lg font-semibold">
 			<!-- Tasks will be rendered here -->
 		</div>
+		<button
+			id="logout"
+			class="bg-red-600 text-white p-2 rounded w-full font-semibold mt-4"
+			>Logout</button
+		>
 	</body>
 </html>
