@@ -1,3 +1,37 @@
+document.addEventListener("DOMContentLoaded", () => {
+	checkIfLoggedIn();
+
+	document.getElementById("logout")?.addEventListener("click", () => {
+		logoutUser();
+	});
+});
+
+// Function to check if the user is logged in
+function checkIfLoggedIn() {
+	chrome.storage.local.get("token", async (result) => {
+		const token = result.token;
+		if (token) {
+			// If token exists, assume it's valid and fetch tasks
+			fetchTasks(token).catch((error) => {
+				console.error("Error fetching tasks with stored token:", error);
+				alert("Session expired or token invalid. Please log in again.");
+				logoutUser(); // Log out if there's an issue with the token
+			});
+		} else {
+			// No token, redirect to login page
+			window.location.href = "login.html";
+		}
+	});
+}
+
+// Function to log out the user
+function logoutUser() {
+	chrome.storage.local.remove("token", () => {
+		alert("Logged out successfully.");
+		window.location.href = "login.html"; // Redirect to login
+	});
+}
+
 // Function to fetch tasks from the server
 async function fetchTasks() {
 	try {
