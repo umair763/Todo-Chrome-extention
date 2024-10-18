@@ -1,0 +1,26 @@
+{
+	"manifest_version": 3,
+	"name": "Todo App Extension",
+	"version": "1.0",
+	"description": "A Chrome extension to access your Todo app.",
+	"action": {
+		"default_popup": "popup.html",
+		"default_icon": {
+			"16": "images/img4.png",
+			"48": "images/img4.png",
+			"128": "images/img4.png"
+		}
+	},
+	"icons": {
+		"16": "images/img4.png",
+		"48": "images/img4.png",
+		"128": "images/img4.png"
+	},
+	"permissions": ["storage", "activeTab", "identity"],
+	"background": {
+		"service_worker": "scripts/background.js"
+	},
+	"content_security_policy": {
+		"extension_pages": "script-src 'self'; object-src 'self'"
+	}
+}

@@ -1,0 +1,14 @@
+/Todo-extension
+   ├── /images                # Optional: icons and images for the extension
+   ├── /scripts               # JavaScript files for extension logic
+       ├── background.js      # Background script to handle GitHub login and token management
+       ├── popup.js           # JavaScript for handling popup interactions (e.g., displaying tasks, delete task)
+       ├── content.js         # Interacts with GitHub page to detect login (optional but useful)
+       ├── api.js             # Handles API requests to your Todo app's backend to fetch and delete tasks
+   ├── /styles                # Optional: CSS files for styling popup and other UI elements
+       ├── popup.css          # Styles for the popup interface
+   ├── manifest.json          # Metadata about the extension (version, permissions, etc.)
+   ├── popup.html             # HTML for the popup interface where tasks will be displayed
+   ├── options.html           # Optional: options page (if you need settings for the extension)
+   ├── options.js             # JavaScript for options page (if needed)
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+			rel="stylesheet" />
+		<script
+			src="scripts/popup.js"
+			defer></script>
+		<script
+			src="scripts/api.js"
+			defer></script>
+		<script
+			src="scripts/background.js"
+			defer></script>
+		<title>Todo Extension</title>
+		<style>
+			body {
+				width: 300px; /* Adjust this value as needed */
+			}
+		</style>
+	</head>
+	<body class="p-4 bg-gray-100">
+		<h1 class="text-xl font-bold mb-4">Todo Tasks</h1>
+		<input
+			type="email"
+			id="email"
+			placeholder="Email"
+			class="border p-2 mb-2 w-full"
+			required />
+		<input
+			type="password"
+			id="password"
+			placeholder="Password"
+			class="border p-2 mb-4 w-full"
+			required />
+		<button
+			id="fetchTasks"
+			class="bg-blue-500 text-white p-2 rounded w-full"
+			>Fetch Tasks</button
+		>
+		<div
+			id="taskList"
+			class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
+			<!-- Tasks will be rendered here -->
+		</div>
+	</body>
+</html>
