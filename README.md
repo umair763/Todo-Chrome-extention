@@ -64,11 +64,15 @@ Here are some screenshots of the extension in action:
 
 1. **Login Screen**
 
+    ![Login Screen](images/login.png)
+
 2. **Task List View**
 
-3. **Task Deletion**
+    ![Login Screen](images/tasks.png)
 
-4. **Logged Out State**
+3. **Logged Out State**
+
+    ![Login Screen](images/logout.png)
 
 ## Demo
 
