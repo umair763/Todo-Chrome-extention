@@ -83,18 +83,63 @@ function displayTasks(tasks) {
 
 	if (tasks.length === 0) {
 		taskList.innerHTML = "<p class='col-span-4 text-center'>No tasks found.</p>";
-		// Hide loading animation when there are no tasks
-		document.getElementById("loading").classList.add("hiddenn");
+		document.getElementById("loading").classList.add("hidden");
 		return;
 	}
 
+	// Function to check if a task has exceeded its deadline
+	function isDeadlineExceeded(task) {
+		const now = new Date(); // Current date and time
+		const taskDateTime = convertToComparableDateTime(task.date, task.time);
+
+		// Extract just the date part from the current time for comparison (ignoring the time part)
+		const nowDateOnly = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+		// Extract just the date part from the task date for comparison (ignoring the time part)
+		const taskDateOnly = new Date(taskDateTime.getFullYear(), taskDateTime.getMonth(), taskDateTime.getDate());
+
+		// If the task date is before today, it's considered exceeded
+		if (taskDateOnly < nowDateOnly) {
+			return true;
+		}
+
+		// If the task date is today, it hasn't exceeded yet (we check full day, not time)
+		if (taskDateOnly.getTime() === nowDateOnly.getTime()) {
+			return false; // Still within today's deadline
+		}
+
+		// If the task is in the future, it's not exceeded
+		return false;
+	}
+
+	// Convert date and time to comparable Date object
+	function convertToComparableDateTime(date, time) {
+		const [day, month, year] = date.split("/");
+		let [hours, minutes, ampm] = time.match(/(\d+):(\d+)\s(AM|PM)/).slice(1, 4);
+
+		hours = parseInt(hours);
+		if (ampm === "PM" && hours < 12) hours += 12;
+		if (ampm === "AM" && hours === 12) hours = 0;
+
+		return new Date(year, month - 1, day, hours, minutes);
+	}
+
+	// Display tasks with exceeded deadline status
 	tasks.forEach((task) => {
 		const taskCard = document.createElement("div");
 		taskCard.className = "bg-white border rounded-lg shadow p-4 grid grid-cols-4 items-center gap-2"; // Using a grid layout with 4 columns
+
+		// Check if the task's deadline is exceeded
+		const exceeded = isDeadlineExceeded(task);
+		const exceededMessage = exceeded
+			? `<span style="color: #b91c1c; class="text-red-700 text-xs sm:text-sm">Deadline Exceeded</span>`
+			: "";
+
 		taskCard.innerHTML = `
 			<h2 class="font-semibold col-span-2 text-sm sm:text-base truncate">${task.task}</h2>
-			<span class="text-gray-600 text-xs sm:text-sm text-center">${task.date}</span>
-			<span class="text-gray-600 text-xs sm:text-sm text-center">${task.time}</span>
+			<span class="text-xs sm:text-sm text-center">${task.date}</span>
+			<span class="text-xs sm:text-sm text-center">${task.time}</span>
+			${exceededMessage}
 			<button class="bg-red-600 text-white text-xs p-1 rounded delete-btn">
 				Delete
 			</button>
