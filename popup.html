@@ -39,29 +39,61 @@
 					animation: glow 3s infinite ease-in-out;
 				}
 			}
+
 			.hide {
-				display: none; 
+				display: none;
+			}
+
+			/* Custom Scrollbar Styling */
+			#taskList {
+				max-height: 77vh; /* Limit height for scrollable area */
+				overflow-y: auto; /* Enable vertical scrolling */
+				padding-right: 8px; /* Add padding for scrollbar visibility */
+				scrollbar-width: thin; /* Firefox: Thin scrollbar */
+				scrollbar-color: #74feee #0172af; /* Firefox: Thumb and Track colors */
+			}
+
+			/* Chrome/Edge Scrollbar Styling */
+			#taskList::-webkit-scrollbar {
+				width: 8px; /* Scrollbar width */
+			}
+			#taskList::-webkit-scrollbar-track {
+				background: #0172af; /* Track color */
+				border-radius: 4px; /* Rounded edges for track */
+			}
+			#taskList::-webkit-scrollbar-thumb {
+				background: #74febd; /* Thumb color */
+				border-radius: 8px; /* Rounded edges for thumb */
+			}
+			#taskList::-webkit-scrollbar-thumb:hover {
+				background: #5dd4c7; /* Thumb hover color */
+			}
+
+			/* Rounded corners for the entire popup */
+			body {
+				border-radius: 16px; /* Round the popup edges */
+				overflow: hidden; /* Prevent content overflow from breaking the rounded effect */
 			}
 		</style>
 	</head>
-	<div
-		id="loading"
-		class="hide relative w-full h-[300px] flex items-center justify-center rounded-md overflow-hidden">
-		<!-- Scan line -->
-		<div
-			class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-white/30 to-transparent animate-scan"></div>
-
-		<!-- Glowing border -->
-		<div class="absolute top-0 left-0 w-full h-full border-2 border-transparent rounded-md animate-glow"></div>
-
-		<!-- Loading text -->
-		<div class="relative z-10 text-white text-lg font-semibold">Fetching Tasks...</div>
-	</div>
 
 	<body
-		class="bg-gradient-to-br from-[#0172af] to-[#74febd] p-4 rounded-lg w-64 min-h-screen"
+		class="bg-gradient-to-br from-[#0172af] to-[#74febd] p-4 w-64 min-h-screen shadow-lg"
 		style="font-family: Caros Light">
 		<h1 class="text-xl font-bold mb-4 text-white">Todo Tasks</h1>
+		<div
+			id="loading"
+			class="hide relative w-full h-[300px] flex items-center justify-center rounded-md overflow-hidden">
+			<!-- Scan line -->
+			<div
+				class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-white/30 to-transparent animate-scan"></div>
+
+			<!-- Glowing border -->
+			<div class="absolute top-0 left-0 w-full h-full border-2 border-transparent rounded-md animate-glow"></div>
+
+			<!-- Loading text -->
+			<div class="relative z-10 text-white text-lg font-semibold">Fetching Tasks...</div>
+		</div>
 		<div
 			id="taskList"
 			class="rounded-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 shadow-lg font-semibold">
